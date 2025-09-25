@@ -3,3 +3,4 @@ scikit-learn==1.6.1
 pandas==2.3.2
 numpy==2.0.2
 joblib==1.5.2
+aliyun==3.0.302

@@ -2,11 +2,10 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 
-def process_data(path: str,features: list[str], tar = 'Occupancy') -> pd.DataFrame:
-    data = pd.read_csv(path)
+def process_data(data: pd.DataFrame,features: list[str], tar = 'Occupancy') -> pd.DataFrame: 
     X = data[features] 
     y = data[tar] if tar in data.columns else None
-
+    print(f"X shape: {X.shape}, y shape: {y.shape if y is not None else None}")
 
     if 'HumidityRatio' in X.columns:
         X = X.assign(HumidityRatio = X['HumidityRatio'].round(5))
@@ -14,11 +13,7 @@ def process_data(path: str,features: list[str], tar = 'Occupancy') -> pd.DataFra
     imputer = SimpleImputer(strategy='median')
     X = imputer.fit_transform(X)
 
-    #X_train['Humidity'] = X_train['Humidity'].round(2)
-    #X_test['Humidity'] = X_test['Humidity'].round(2)
-
     scaler = StandardScaler()
-    X = scaler.fit_transform(X)  # fi
+    X = scaler.fit_transform(X)  
     
     return X, y
-
